@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 //La dependencia Lombok nos permite trabajar mediante anotaciones
 @Data //Me genera setters, getters , hashcode , Equals automaticamente
@@ -28,7 +29,7 @@ public class Cliente implements Serializable {
     @Column(name = "correo")
     private String correo;
     @Column(name = "fecha_registro")
-    private Date fechaRegistro;
+    private LocalDate fechaRegistro;
 
 
 }
