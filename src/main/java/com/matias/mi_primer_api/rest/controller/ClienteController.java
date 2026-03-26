@@ -22,19 +22,24 @@ public class ClienteController {
     private ICliente clienteService;
 
     //@RequestBody lo que hace es que cuando me envien por medio de JSON la informacion se va a transformar al obj Cliente
+    //@ResponseStatus es para personalizar los estados (200 O 201).
     @PostMapping("cliente")
     @ResponseStatus(HttpStatus.CREATED)
     public Cliente create(@RequestBody Cliente cliente){
+
         return clienteService.save(cliente);
     }
+
     @PutMapping("cliente")
     @ResponseStatus(HttpStatus.CREATED)
     public Cliente update(@RequestBody Cliente cliente){
+
         return clienteService.save(cliente);
     }
-    //@PathVariable indica que el id del parametro
+    //@PathVariable toma el id del JSON y lo guarda en el parametro id
+    //ResponseEntity<?> es un generico en donde si todo sale bien devuelve un Obj Cliente y si no un Map con el error
+    //
     @DeleteMapping("cliente/{id}")
-
     public ResponseEntity<?> delete(@PathVariable Integer id){
         Map<String, Object> response = new HashMap<>();
         try {
@@ -51,6 +56,7 @@ public class ClienteController {
     @GetMapping("cliente/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Cliente showById(@PathVariable Integer id){
+
         return clienteService.findById(id);
     }
 }
