@@ -45,6 +45,15 @@ public class ClienteController {
     public ResponseEntity<?> delete(@PathVariable Integer id){
         try {
             ClienteDto clienteDelete = clienteService.findById(id);
+            if (clienteDelete == null) {
+                return new ResponseEntity<>(
+                        MensajeResponse.builder()
+                                .mensaje("El cliente con ID " + id + " no existe en la base de datos.")
+                                .object(null)
+                                .build(),
+                        HttpStatus.NOT_FOUND); // Error 404: No encontrado
+            }
+
             clienteService.delete(clienteDelete);
             return new ResponseEntity<>(clienteDelete, HttpStatus.NO_CONTENT);
         } catch (DataAccessException exDt) {
