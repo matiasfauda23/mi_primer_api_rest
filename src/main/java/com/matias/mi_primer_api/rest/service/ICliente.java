@@ -11,7 +11,6 @@ public interface ICliente {
         @Transactional
         //Le dice a la bd o se hace con exito o no se hace nada
         ClienteDto save(ClienteDto clienteDto);
-
         ClienteDto findById(Integer id);
         void delete(ClienteDto clienteDto);
 }

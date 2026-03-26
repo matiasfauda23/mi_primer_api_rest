@@ -19,6 +19,8 @@ public class ClienteImpl implements ICliente {
     @Transactional
     @Override
     public ClienteDto save(ClienteDto clienteDto) {
+        //Del postaman envia un JSON y el controller lo recibe como DTO
+        //Aca convertimos ese DTO a Entity  porque el DAO solo entiende entidades
         //Convertimos DTO -> Entity para que el DAO la entienda
         Cliente cliente = Cliente.builder().idCliente(clienteDto.getIdCliente())
                 .nombre(clienteDto.getNombre())
@@ -28,7 +30,7 @@ public class ClienteImpl implements ICliente {
                 build();
         //Guardamos en la db
         Cliente clienteSaved = clienteDao.save(cliente);
-        //Conertimos la entity guardada -> DTO para responderle al controller
+        //Convertimos la entity guardada -> DTO para responderle al controller
         return ClienteDto.builder()
                 .idCliente(clienteSaved.getIdCliente())
                 .nombre(clienteSaved.getNombre())
@@ -41,15 +43,14 @@ public class ClienteImpl implements ICliente {
     @Transactional(readOnly = true) //Se usa solo en busquedas
     @Override
     public ClienteDto findById(Integer id) {
-        // 1) Buscamos la Entity en la DB
+        // Buscamos la Entity en la DB
         Cliente cliente = clienteDao.findById(id).orElse(null);
 
-        // 2) Si no existe, devolvemos null (para evitar errores al buildear)
+        // Si no existe, devolvemos null (para evitar errores al buildear)
         if (cliente == null) {
             return null;
         }
-
-        // 3) Si existe, la convertimos a DTO y la devolvemos
+        // Si existe, la convertimos a DTO y la devolvemos
         return ClienteDto.builder()
                 .idCliente(cliente.getIdCliente())
                 .nombre(cliente.getNombre())
@@ -66,6 +67,5 @@ public class ClienteImpl implements ICliente {
                 .idCliente(clienteDto.getIdCliente())
                 .build();
         clienteDao.delete(cliente);
-
     }
 }
