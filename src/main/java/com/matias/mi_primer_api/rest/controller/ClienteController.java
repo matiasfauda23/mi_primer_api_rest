@@ -2,6 +2,7 @@ package com.matias.mi_primer_api.rest.controller;
 
 import com.matias.mi_primer_api.rest.model.dto.ClienteDto;
 import com.matias.mi_primer_api.rest.model.entity.Cliente;
+import com.matias.mi_primer_api.rest.model.payload.MensajeResponse;
 import com.matias.mi_primer_api.rest.service.ICliente;
 import org.hibernate.exception.DataException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,15 +43,17 @@ public class ClienteController {
     //
     @DeleteMapping("cliente/{id}")
     public ResponseEntity<?> delete(@PathVariable Integer id){
-        Map<String, Object> response = new HashMap<>();
         try {
             ClienteDto clienteDelete = clienteService.findById(id);
             clienteService.delete(clienteDelete);
             return new ResponseEntity<>(clienteDelete, HttpStatus.NO_CONTENT);
         } catch (DataAccessException exDt) {
-            response.put("mensaje", exDt.getMessage());
-            response.put("cliente", null);
-            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(
+                    MensajeResponse.builder()
+                            .mensaje(exDt.getMessage())
+                            .object(null)
+                            .build(),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
