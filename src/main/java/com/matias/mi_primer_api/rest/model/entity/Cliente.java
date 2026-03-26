@@ -1,9 +1,7 @@
 package com.matias.mi_primer_api.rest.model.entity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
@@ -12,6 +10,7 @@ import java.util.Date;
 @AllArgsConstructor //Que me genere el constructor con todos sus argumentos
 @NoArgsConstructor //Genera un constructor vacio
 @ToString
+@Builder
 @Entity //Definimos que esta clase es una entidad
 @Table(name = "clientes") //Le indicamos que la clase debe hacer referecia a la tabla con nombre "clientes"
 

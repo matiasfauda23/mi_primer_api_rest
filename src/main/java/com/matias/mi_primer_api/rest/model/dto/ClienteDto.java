@@ -10,6 +10,7 @@ import java.time.LocalDate;
 
 //La dependencia Lombok nos permite trabajar mediante anotaciones
 @Data //Me genera setters, getters , hashcode , Equals automaticamente
+@AllArgsConstructor
 @NoArgsConstructor //Genera un constructor vacio
 @ToString
 @Builder //Patron de diseño

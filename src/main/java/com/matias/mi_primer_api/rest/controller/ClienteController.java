@@ -1,5 +1,6 @@
 package com.matias.mi_primer_api.rest.controller;
 
+import com.matias.mi_primer_api.rest.model.dto.ClienteDto;
 import com.matias.mi_primer_api.rest.model.entity.Cliente;
 import com.matias.mi_primer_api.rest.service.ICliente;
 import org.hibernate.exception.DataException;
@@ -25,14 +26,14 @@ public class ClienteController {
     //@ResponseStatus es para personalizar los estados (200 O 201).
     @PostMapping("cliente")
     @ResponseStatus(HttpStatus.CREATED)
-    public Cliente create(@RequestBody Cliente cliente){
+    public ClienteDto create(@RequestBody ClienteDto cliente){
 
         return clienteService.save(cliente);
     }
 
     @PutMapping("cliente")
     @ResponseStatus(HttpStatus.CREATED)
-    public Cliente update(@RequestBody Cliente cliente){
+    public ClienteDto update(@RequestBody ClienteDto cliente){
 
         return clienteService.save(cliente);
     }
@@ -43,7 +44,7 @@ public class ClienteController {
     public ResponseEntity<?> delete(@PathVariable Integer id){
         Map<String, Object> response = new HashMap<>();
         try {
-            Cliente clienteDelete = clienteService.findById(id);
+            ClienteDto clienteDelete = clienteService.findById(id);
             clienteService.delete(clienteDelete);
             return new ResponseEntity<>(clienteDelete, HttpStatus.NO_CONTENT);
         } catch (DataAccessException exDt) {
@@ -55,7 +56,7 @@ public class ClienteController {
 
     @GetMapping("cliente/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Cliente showById(@PathVariable Integer id){
+    public ClienteDto showById(@PathVariable Integer id){
 
         return clienteService.findById(id);
     }
